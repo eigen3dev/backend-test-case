@@ -81,7 +81,7 @@
 
 ## Requirements
 
-- [ ]  it should be use any framework, but prefered [NestJS]([https://nestjs.com/](https://nestjs.com/)) Framework Or [ExpressJS]([https://expressjs.com/](https://expressjs.com/))
+- [ ]  it should be use any framework, but prefered [NestJS](https://nestjs.com/) Framework Or [ExpressJS](https://expressjs.com/)
 - [ ]  it should be use Swagger as API Documentation
 - [ ]  it should be use Database (SQL/NoSQL)
 - [ ]  it should be open sourced on your github repo
