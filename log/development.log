@@ -2970,3 +2970,4 @@ Processing by Api::MembersController#borrow as JSON
 Completed 500 Internal Server Error in 16ms (Views: 0.1ms | ActiveRecord: 0.6ms | Allocations: 7783)
 
 
+  [1m[36mMember Load (0.5ms)[0m  [1m[34mSELECT "members".* FROM "members"[0m

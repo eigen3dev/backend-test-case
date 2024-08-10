@@ -3,7 +3,7 @@ class Member < ApplicationRecord
 
   has_many :borrow_books
 
-  validates :code, :name, presence: true
+  validates :code, :name, :book_borrowed_count, presence: true
   validates :code, uniqueness: true
   validates :book_borrowed_count, numericality: { only_integer: true, less_than_or_equal_to: 2}
   validates :book_borrowed_count, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
