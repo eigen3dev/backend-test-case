@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: Book Borrowing API
+  version: 1.0.0
+  description: API for managing books, members, and borrowing/returning books.
+
+paths:
+  /api/books:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: A list of books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookCreateRequest'
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /api/members:
+    get:
+      summary: Get all members
+      responses:
+        '200':
+          description: A list of members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+        '500':
+          description: Internal server error
+
+    post:
+      summary: Create a new member
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberCreateRequest'
+      responses:
+        '201':
+          description: Member created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /api/members/borrow:
+    post:
+      summary: Borrow a book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BorrowRequest'
+      responses:
+        '200':
+          description: Book borrowed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BorrowBook'
+        '400':
+          description: Bad request
+        '404':
+          description: Book or Member not found
+        '422':
+          description: Unprocessable Entity (e.g., book out of stock, member penalized)
+        '500':
+          description: Internal server error
+
+  /api/members/return_book:
+    delete:
+      summary: Return a borrowed book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnRequest'
+      responses:
+        '200':
+          description: Book returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BorrowBook'
+        '400':
+          description: Bad request
+        '404':
+          description: Book or Member not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "TW-11"
+        title:
+          type: string
+          example: "Twilight"
+        author:
+          type: string
+          example: "Stephenie Meyer"
+        stock:
+          type: integer
+          example: 1
+      required:
+        - code
+        - title
+        - author
+        - stock
+
+    BookCreateRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "TW-11"
+        title:
+          type: string
+          example: "Twilight"
+        author:
+          type: string
+          example: "Stephenie Meyer"
+        stock:
+          type: integer
+          example: 1
+      required:
+        - code
+        - title
+        - author
+        - stock
+
+    Member:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "M001"
+        name:
+          type: string
+          example: "Angga"
+        book_borrowed_count:
+          type: integer
+          example: 0
+        is_penalized:
+          type: boolean
+          example: false
+        penalty_until_date:
+          type: string
+          format: date
+          example: "2024-08-14"
+
+    MemberCreateRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "M001"
+        name:
+          type: string
+          example: "Angga"
+      required:
+        - code
+        - name
+
+    BorrowBook:
+      type: object
+      properties:
+        book_id:
+          type: integer
+          example: 1
+        member_id:
+          type: integer
+          example: 1
+        deadline_book:
+          type: string
+          format: date
+          example: "2024-08-10"
+
+    BorrowRequest:
+      type: object
+      properties:
+        code_book:
+          type: string
+          example: "TW-11"
+        code_member:
+          type: string
+          example: "M002"
+      required:
+        - code_book
+        - code_member
+
+    ReturnRequest:
+      type: object
+      properties:
+        code_book:
+          type: string
+          example: "TW-11"
+        code_member:
+          type: string
+          example: "M002"
+      required:
+        - code_book
+        - code_member
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      example:
+        message: "Resource not found"
+
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      example:
+        message: "Invalid request parameters"
+
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+      example:
+        message: "Book is out of stock or member is penalized"
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string

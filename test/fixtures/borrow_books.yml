@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book_id: 1
+  member_id: 1
+  deadline_book: 2024-08-10 10:50:03
+
+two:
+  book_id: 1
+  member_id: 1
+  deadline_book: 2024-08-10 10:50:03
