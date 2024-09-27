@@ -1,5 +1,20 @@
 # Backend Test Case
 
+## Requirements
+
+- [ ]  it should be use [NestJS](https://nestjs.com/) Framework Or [ExpressJS](https://expressjs.com/) With **TypeScript**
+- [ ]  it should be use Swagger as API Documentation
+- [ ]  it should be use Database (SQL/NoSQL)
+- [ ]  it should be open sourced on your github repo
+
+## Extras
+
+- [ ]  Implement [DDD Pattern]([https://khalilstemmler.com/articles/categories/domain-driven-design/](https://khalilstemmler.com/articles/categories/domain-driven-design/))
+- [ ]  Implement Unit Testing
+
+## Notes
+- Feel free to add some structure or plugins
+
 ## Entities
 
 - Member
@@ -78,21 +93,6 @@
     },
 ]
 ```
-
-## Requirements
-
-- [ ]  it should be use any framework, but prefered [NestJS](https://nestjs.com/) Framework Or [ExpressJS](https://expressjs.com/)
-- [ ]  it should be use Swagger as API Documentation
-- [ ]  it should be use Database (SQL/NoSQL)
-- [ ]  it should be open sourced on your github repo
-
-## Extras
-
-- [ ]  Implement [DDD Pattern]([https://khalilstemmler.com/articles/categories/domain-driven-design/](https://khalilstemmler.com/articles/categories/domain-driven-design/))
-- [ ]  Implement Unit Testing
-
-## Notes
-- Feel free to add some structure or plugins
 
 
 ------
